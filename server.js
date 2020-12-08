@@ -23,16 +23,24 @@ if (process.env.NODE_ENV === "production") {
 // Add routes
 app.use(routes);
 
-//for local connect to mongo
-//"mongodb://localhost/booksSearchReact"
+// // Connect to the Mongo DB
+// mongoose.connect(
+//   process.env.MONGODB_URI ||
+//     `mongodb://${process.env.MLAB_USERNAME}:${process.env.MLAB_PASSWORD}@ds129422.mlab.com:29422/heroku_zdr1rv5s`,
+//   {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   }
+// );
 
 // Connect to the Mongo DB
 mongoose.connect(
-  process.env.MONGODB_URI ||
-    `mongodb://${process.env.MLAB_USERNAME}:${process.env.MLAB_PASSWORD}@ds129422.mlab.com:29422/heroku_zdr1rv5s`,
+  process.env.MONGODB_URI || "mongodb://localhost/googlebooksdb",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
   }
 );
 
