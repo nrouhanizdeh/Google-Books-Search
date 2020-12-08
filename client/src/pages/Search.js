@@ -22,6 +22,8 @@ function Search() {
   }
 
   function handleInputChange(event) {
+    console.log(event.target.name);
+    console.log(event.target.value);
     const { name, value } = event.target;
     setApiSearchObj({ ...apiSearchObj, [name]: value });
   }
@@ -32,15 +34,13 @@ function Search() {
     setApiSearchObj({ ...apiSearchObj, [name]: value });
   }
 
-  function handleSearchSubmit() {
-    if (!apiSearchObj.selectValue || !apiSearchObj.inputValue) {
-    } else {
-      API.searchGoogleBooks(apiSearchObj.selectValue, apiSearchObj.inputValue)
-        .then((respObj) => {
-          setApiBooks(respObj.data);
-        })
-        .catch((err) => console.log(err));
-    }
+  function handleSearchSubmit(event) {
+    event.preventDefault();
+    API.searchGoogleBooks(apiSearchObj.selectValue, apiSearchObj.inputValue)
+      .then((respObj) => {
+        setApiBooks(respObj.data);
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleSaveBook(event) {
@@ -55,49 +55,47 @@ function Search() {
 
   return (
     <div>
-      <div>
-        <h1 className="text-center">Google Books Search</h1>
-        <Row>
-          <Col size="md-12 sm-12">
-            <Container>
-              <div className="level-right">
-                <Select
-                  onChange={handleSelectChange}
-                  name={"name"}
-                  value={apiSearchObj.selectValue}
-                >
-                  {selectOptions.map((value, index) => {
-                    return (
-                      <Option key={index} name={"name"} value={value}>
-                        {" "}
-                        {value}{" "}
-                      </Option>
-                    );
-                  })}
-                </Select>
-              </div>
+      <Row>
+        <Col size="md-12 sm-12">
+          <Container className="justify-content-center">
+            <h1 className="text-center">Google Books Search</h1>
+            <Select
+              onChange={handleSelectChange}
+              name={"name"}
+              value={apiSearchObj.selectValue}
+            >
+              {selectOptions.map((value, index) => {
+                return (
+                  <Option key={index} name={"name"} value={value}>
+                    {" "}
+                    {value}{" "}
+                  </Option>
+                );
+              })}
+            </Select>
 
-              <Input
-                inputcolor={"is-success"}
-                inputsize={"is-medium"}
-                placeholder="Search for a book"
-                onChange={handleInputChange}
-                name={"inputValue"}
-              ></Input>
+            <Input
+              type="text"
+              className="form-control"
+              placeholder="Search for a book"
+              id="inputDefault"
+              onChange={handleInputChange}
+              name={"inputValue"}
+            ></Input>
 
-              <Button
-                customclass="button is-dark is-medium is-hovered"
-                onClick={handleSearchSubmit}
-              >
-                Search
-              </Button>
-            </Container>
-          </Col>
-        </Row>
-        <UseContext.Provider value={{ apiBooks, handleSaveBook }}>
-          <BookResults saveOrDelete={true} />
-        </UseContext.Provider>
-      </div>
+            <Button
+              className="btn btn-outline-primary"
+              onClick={handleSearchSubmit}
+            >
+              Search
+            </Button>
+          </Container>
+        </Col>
+      </Row>
+      <UseContext.Provider value={{ apiBooks, handleSaveBook }}>
+        <BookResults saveOrDelete={true} />
+      </UseContext.Provider>
+
       <Modal
         title={"Saved the book!"}
         active={activateModal}

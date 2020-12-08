@@ -37,6 +37,8 @@ function MyBooks() {
 
   return (
     <div>
+      <br></br>
+      <br></br>
       <h1 className="text-center">Google Books Search</h1>
       <UseContext.Provider value={{ apiBooks, handleDeleteBook }}>
         <BookResults saveOrDelete={false} />

@@ -3,9 +3,7 @@ import React from "react";
 function Nav() {
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-light">
-      <a className="navbar-brand" href="#">
-        Google Books
-      </a>
+      <div className="navbar-brand">Google Books</div>
       <button
         className="navbar-toggler"
         type="button"
@@ -17,7 +15,6 @@ function Nav() {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-
       <div className="collapse navbar-collapse" id="navbarColor03">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
