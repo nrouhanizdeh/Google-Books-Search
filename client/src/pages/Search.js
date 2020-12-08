@@ -22,8 +22,6 @@ function Search() {
   }
 
   function handleInputChange(event) {
-    console.log(event.target.name);
-    console.log(event.target.value);
     const { name, value } = event.target;
     setApiSearchObj({ ...apiSearchObj, [name]: value });
   }
@@ -34,11 +32,22 @@ function Search() {
     setApiSearchObj({ ...apiSearchObj, [name]: value });
   }
 
+  // function handleSearchSubmit(event) {
+  //   event.preventDefault();
+  //   API.searchGoogleBooks(apiSearchObj.selectValue, apiSearchObj.inputValue)
+  //     .then((respObj) => {
+  //       setApiBooks(respObj.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
+
   function handleSearchSubmit(event) {
     event.preventDefault();
-    API.searchGoogleBooks(apiSearchObj.selectValue, apiSearchObj.inputValue)
-      .then((respObj) => {
-        setApiBooks(respObj.data);
+    API.searchBooks(apiSearchObj.inputValue)
+      .then((res) => {
+        setApiBooks(res.data);
+
+        console.log(apiSearchObj.inputValue);
       })
       .catch((err) => console.log(err));
   }
